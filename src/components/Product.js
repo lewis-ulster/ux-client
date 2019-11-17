@@ -2,11 +2,11 @@ import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-export default function Product({name, desc, price}) {
+export default function Product({image, name, desc, price}) {
 
     return (
         <Card style={{ width: '10rem' }}>
-          <Card.Img variant="top" src="https://cdn.pcpartpicker.com/static/forever/images/product/1b6084a197c46a295eb03b6ed062eda2.1600.jpg" />
+          <Card.Img variant="top" src={ image } />
             <Card.Body>
               <Card.Title>{ name }</Card.Title>
               <Card.Text>
