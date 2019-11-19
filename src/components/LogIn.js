@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import axios from '../axios-default';
+//import { AuthContext } from '../context/Auth'
 
 export default function LogIn() {
 
@@ -12,7 +13,6 @@ export default function LogIn() {
         event.preventDefault();
         const data = new FormData(event.target);
 
-        console.log(data)
         console.log(email);
         console.log(password);
     
@@ -20,10 +20,11 @@ export default function LogIn() {
             email: email,
             password: password
         })
-        .then(function (response) {
-            console.log(response);
+        .then((res) => {
+            localStorage.setItem("token", res.data);
+            console.log(res.data);
           })
-          .catch(function (error) {
+          .catch((error) => {
             console.log(error);
           });
     };

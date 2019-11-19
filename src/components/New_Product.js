@@ -1,60 +1,73 @@
-import React, {useContext, useState} from 'react';
+import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import axios from '../axios-default';
+import axios from '../axios-default'
 
-export default function NewProduct() {
+class NewProduct extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            name: null,
+            description: null,
+            price: null,
+            image: null
+        }
+    }
 
-    const [submit, setSubmit] = useState({
-        name: '',
-        description: '',
-        price: 0,
-        image: ''
-    });
-
-    const handleSubmit = (event) => {
+    handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.target);
-
-        axios.post('/products', submit)
-        .then(function (response) {
-            console.log(response);
+        const data = this.state
+        
+        axios.post('/products', data)
+        .then((res) => {
+            console.log(res);
           })
-          .catch(function (error) {
+          .catch((error) => {
             console.log(error);
           });
     };
 
+    handleChange = (event) => {
+        this.setState({
+            [event.target.name] : event.target.value
+        })
+    }
 
-    return (
+
+    render () {
+        return(
             <div>
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={this.handleSubmit}>
                     <Form.Group controlId="name">
-                        <Form.Label>Product Name</Form.Label>
+                        <Form.Label>Name</Form.Label>
                         <Form.Control type="text" 
                         placeholder="Product Name" 
-                        onChange={e => setSubmit({ name : e.target.value })}
+                        name = "name"
+                        onChange={this.handleChange}
                         />
                     </Form.Group>
                     <Form.Group controlId="desc">
                         <Form.Label>Description</Form.Label>
                         <Form.Control type="text" 
                         placeholder="Description" 
-                        onChange={e => setSubmit({ description : e.target.value })}
+                        name = "description"
+                        onChange={this.handleChange}
                         />
                     </Form.Group>
                     <Form.Group controlId="price">
                         <Form.Label>Price</Form.Label>
                         <Form.Control type="number" 
                         placeholder="Price" 
-                        onChange={e => setSubmit({ price : e.target.value })}
+                        name = "price"
+                        onChange={this.handleChange}
                         />
                     </Form.Group>
                     <Form.Group controlId="link">
                         <Form.Label>Image Link</Form.Label>
                         <Form.Control type="text" 
                         placeholder="Link" 
-                        onChange={e => setSubmit({ image : e.target.value })}
+                        name = "image"
+                        onChange={this.handleChange}
                         />
                     </Form.Group>
                     <Button variant="primary" type="submit">
@@ -62,5 +75,8 @@ export default function NewProduct() {
                     </Button>
                 </Form>
             </div>
-    )
+        )
+    }
 }
+
+export default NewProduct

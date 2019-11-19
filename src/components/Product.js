@@ -16,6 +16,7 @@ export default function Product({image, name, desc, price}) {
               { price }
               </Card.Text>
           <Button variant="primary">Add to Basket</Button>
+          <Button variant="secondary">Add to Wishlist</Button>
           </Card.Body>
         </Card>
     )
